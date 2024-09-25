@@ -96,23 +96,21 @@ public class UserInterface {
     String name = getToken("Enter client name");
     String address = getToken("Enter address");
     String phone = getToken("Enter phone");
-    Member result;
-    result = Warehouse.addClient(name, address, phone);
+    Client result = warehouse.addClient(name, address, phone); // Use the warehouse instance instead of Warehouse
     if (result == null) {
-      System.out.println("Could not add client");
+        System.out.println("Could not add client");
+    } else {
+        System.out.println(result);
     }
-    System.out.println(result);
-  }
+}
 
-  
-
-  public void showClients() {
-      Iterator allClients = Warehouse.getClients();
-      while (allClients.hasNext()){
-	  Client client = (Client)(allClients.next());
-          System.out.println(client.toString());
-      }
-  }
+public void showClients() {
+    Iterator<Client> allClients = warehouse.getClients().iterator(); // Get iterator from the list of clients
+    while (allClients.hasNext()) {
+        Client client = allClients.next();
+        System.out.println(client.toString());
+    }
+}
 
    
   

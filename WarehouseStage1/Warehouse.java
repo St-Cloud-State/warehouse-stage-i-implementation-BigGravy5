@@ -19,13 +19,13 @@ public class Warehouse implements Serializable{
         }
     }
 
-    public Client addClient(String name, String address, String phone){
-        Client client = new Client(name, address, phone);
-        if(clientList.insertClient(client)){
-            return(client);
-        }
-        return null;
+    public Client addClient(String name, String address, String phone) {
+    Client client = new Client(name, address, phone);
+    if (clientList.insertClient(client)) {
+        return client;
     }
+    return null;
+}
     
     public List<Client> getClients(){
         return clientList.getClients();

@@ -1,19 +1,20 @@
 import java.util.*;
 import java.io.*;
 
-public Class Client implements Serializable {
+public class Client implements Serializable {
     private String id;
     private String name;
     private String address;
     private static final String CLIENT_STRING = "C";
     private String phone;
+    private static final long serialVersionUID = 1L;
 
 
     public Client (String name, String address, String phone){
         this.name = name;
         this.address = address;
         this.phone = phone;
-        id = CLIENT_STRING + (ClientIdServer.instance()).getId();
+        id = CLIENT_STRING + ClientIdServer.instance().getId();
 
     }
 

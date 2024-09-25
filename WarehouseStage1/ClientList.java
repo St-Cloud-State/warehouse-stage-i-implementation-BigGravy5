@@ -3,7 +3,7 @@ import java.io.*;
 
 public class ClientList implements Serializable {
     private static final long serialVersionUID = 1L;
-    private List clients = new LinkedList();
+    private List<Client> clients = new LinkedList();
     private static ClientList clientList;
 
     private ClientList() {
@@ -27,17 +27,16 @@ public class ClientList implements Serializable {
 
 
 
-    public Member findClient(String target){
-        Iterator iterator = client.iterator();
-
-        while (iterator.hasNext()) {
-            Client client = (Client)iterator.next();
-            if (client.getName().equalsIgnoreCase(target)) {
-                return client;
-            }
+    public Client findClient(String target){
+    Iterator<Client> iterator = clients.iterator(); // Correct the reference to clients
+    while (iterator.hasNext()) {
+        Client client = iterator.next();
+        if (client.getName().equalsIgnoreCase(target)) {
+            return client;
         }
-        return null;
     }
+    return null;
+}
 
     public Client search(String clientId) {
         for (Iterator iterator = clients.iterator(); iterator.hasNext(); ) {
