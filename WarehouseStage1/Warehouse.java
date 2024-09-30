@@ -4,10 +4,11 @@ import java.io.*;
 public class Warehouse implements Serializable{
     private static final long serialVersionUID = 1L;
     private ClientList clientList;
-
+    private Catalog catalog;
     public static Warehouse warehouse;
     private Warehouse(){
         clientList = ClientList.instance();
+        catalog = Catalog.instance();
     }
 
     public static Warehouse instance() {
@@ -20,15 +21,27 @@ public class Warehouse implements Serializable{
     }
 
     public Client addClient(String name, String address, String phone) {
-    Client client = new Client(name, address, phone);
-    if (clientList.insertClient(client)) {
-        return client;
+        Client client = new Client(name, address, phone);
+        if (clientList.insertClient(client)) {
+            return client;
+        }
+        return null;
     }
-    return null;
-}
     
+    public Product addProduct(String name, int stock, String id, double price){
+        Product product = new Product(name, stock, id, price);
+        if(catalog.insertProduct(product)){
+            return product;
+        }
+        return null;
+    }
+
     public List<Client> getClients(){
         return clientList.getClients();
+    }
+
+    public List<Product> getProducts(){
+        return catalog.getProducts();
     }
 
 

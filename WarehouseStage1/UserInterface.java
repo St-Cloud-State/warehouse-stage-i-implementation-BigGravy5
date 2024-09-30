@@ -8,10 +8,11 @@ public class UserInterface {
   private static final int EXIT = 0;
   private static final int ADD_CLIENT = 1;
   private static final int DISPLAY_CLIENTS = 2;
-  
-  private static final int SAVE = 3;
-  private static final int RETRIEVE = 4;
-  private static final int HELP = 5;
+   private static final int ADD_PRODUCT = 3;
+  private static final int DISPLAY_PRODUCTS = 4;
+  private static final int SAVE = 5;
+  private static final int RETRIEVE = 6;
+  private static final int HELP = 7;
   private UserInterface() {
     if (yesOrNo("Look for saved data and  use it?")) {
       retrieve();
@@ -85,10 +86,12 @@ public class UserInterface {
   }
 
   public void help() {
-    System.out.println("Enter a number between 0 and 2 as explained below:");
+    System.out.println("Enter a number between 0 and 4 as explained below:");
     System.out.println(EXIT + " to Exit\n"); //0
     System.out.println(ADD_CLIENT + " to add a client"); //1
     System.out.println(DISPLAY_CLIENTS + " to display clients"); //2
+    System.out.println(ADD_PRODUCT + " to add a product"); //3
+    System.out.println(DISPLAY_PRODUCTS + " to display products"); //4 
     System.out.println(HELP + " for help");
   }
 
@@ -112,6 +115,25 @@ public void showClients() {
     }
 }
 
+public void addProduct() {
+    String name = getToken("Enter product name");
+    int stock = Integer.parseInt(getToken("Enter stock amount"));
+    double price = Double.parseDouble(getToken("Enter price"));
+    String id = getToken("Enter id");
+    Product result = warehouse.addProduct(name, stock, id, price); // Use the warehouse instance instead of Warehouse
+    if (result == null) {
+        System.out.println("Could not add product");
+    } else {
+        System.out.println(result);
+    }
+}
+public void showProducts() {
+    Iterator<Product> allProducts = warehouse.getProducts().iterator(); // Get iterator from the list of clients
+    while (allProducts.hasNext()) {
+        Product product = allProducts.next();
+        System.out.println(product.toString());
+    }
+}
    
   
   private void save() {
@@ -144,6 +166,10 @@ public void showClients() {
                                 break;
         case DISPLAY_CLIENTS:   showClients();
                                 break;
+        case ADD_PRODUCT:        addProduct();
+                                break;
+        case DISPLAY_PRODUCTS:   showProducts();
+                                break;         
         case HELP:              help();
                                 break;
       }

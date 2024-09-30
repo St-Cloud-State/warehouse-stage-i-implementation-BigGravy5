@@ -15,13 +15,13 @@ public class Catalog implements Serializable {
     }
   }
   
-  public boolean addProduct(Product product) {
+  public boolean insertProduct(Product product) {
     products.add(product);
     return true;
   }
-  public Iterator getProducts() {
-    return products.iterator();
-  }
+  public List<Product> getProducts(){
+        return products;
+    }
   private void writeObject(java.io.ObjectOutputStream output) {
     try {
       output.defaultWriteObject();
