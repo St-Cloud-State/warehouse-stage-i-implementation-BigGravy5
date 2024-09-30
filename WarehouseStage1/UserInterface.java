@@ -88,7 +88,7 @@ public class UserInterface {
   }
 
   public void help() {
-    System.out.println("Enter a number between 0 and 4 as explained below:");
+    System.out.println("Enter a number between 0 and 9 as explained below:");
     System.out.println(EXIT + " to Exit\n"); //0
     System.out.println(ADD_CLIENT + " to add a client"); //1
     System.out.println(DISPLAY_CLIENTS + " to display clients"); //2
