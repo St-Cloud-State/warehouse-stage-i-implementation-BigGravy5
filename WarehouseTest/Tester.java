@@ -7,9 +7,9 @@ public class Tester {
         ClientList clientList = ClientList.instance();
 
         // Create some clients
-        Client client1 = new Client("Alice", "123 Elm St", "555-1234");
-        Client client2 = new Client("Bob", "456 Oak St", "555-5678");
-        Client client3 = new Client("Charlie", "789 Pine St", "555-9876");
+        Client client1 = new Client("Brad", "143rd", "123-1234");
+        Client client2 = new Client("Bob", "142nd", "123-1234");
+        Client client3 = new Client("Bert", "144th", "123-1234");
 
         // Insert clients into the client list
         clientList.insertClient(client1);
@@ -23,7 +23,7 @@ public class Tester {
         }
 
         // Search for a client by ID
-        String searchId = client1.getId();  // You can use any valid client ID here
+        String searchId = client1.getId(); 
         System.out.println("\nSearching for client with ID: " + searchId);
         Client foundClient = clientList.search(searchId);
 
