@@ -8,11 +8,13 @@ public class UserInterface {
   private static final int EXIT = 0;
   private static final int ADD_CLIENT = 1;
   private static final int DISPLAY_CLIENTS = 2;
-   private static final int ADD_PRODUCT = 3;
+  private static final int ADD_PRODUCT = 3;
   private static final int DISPLAY_PRODUCTS = 4;
-  private static final int SAVE = 5;
-  private static final int RETRIEVE = 6;
-  private static final int HELP = 7;
+  private static final int ADD_PRODUCTS_TO_CLIENTS_WISHLIST = 5;
+  private static final int DISPLAY_CLIENTS_WISHLIST = 6;
+  private static final int SAVE = 7;
+  private static final int RETRIEVE = 8;
+  private static final int HELP = 9;
   private UserInterface() {
     if (yesOrNo("Look for saved data and  use it?")) {
       retrieve();
@@ -92,7 +94,11 @@ public class UserInterface {
     System.out.println(DISPLAY_CLIENTS + " to display clients"); //2
     System.out.println(ADD_PRODUCT + " to add a product"); //3
     System.out.println(DISPLAY_PRODUCTS + " to display products"); //4 
-    System.out.println(HELP + " for help");
+    System.out.println(ADD_PRODUCTS_TO_CLIENTS_WISHLIST + " to add products to a clients wishlist"); //5
+    System.out.println(DISPLAY_CLIENTS_WISHLIST + " to display a clients wishlist"); //6
+    System.out.println(SAVE + " to save");
+    System.out.println(RETRIEVE + " to retrieve");
+    System.out.println(HELP + " for help"); //9
   }
 
   public void addClient() {
@@ -116,23 +122,95 @@ public void showClients() {
 }
 
 public void addProduct() {
-    String name = getToken("Enter product name");
-    int stock = Integer.parseInt(getToken("Enter stock amount"));
-    double price = Double.parseDouble(getToken("Enter price"));
-    String id = getToken("Enter id");
-    Product result = warehouse.addProduct(name, stock, id, price); // Use the warehouse instance instead of Warehouse
-    if (result == null) {
-        System.out.println("Could not add product");
-    } else {
-        System.out.println(result);
+    boolean moreProducts = true;
+    while (moreProducts) {
+        String name = getToken("Enter product name");
+        int stock = Integer.parseInt(getToken("Enter stock amount"));
+        double price = Double.parseDouble(getToken("Enter price"));
+        String id = getToken("Enter product ID");
+
+        Product result = warehouse.addProduct(name, stock, id, price);
+        if (result == null) {
+            System.out.println("Could not add product");
+        } else {
+            System.out.println("Product added: " + result);
+        }
+
+        // Ask the user if they want to add another product
+        String more = getToken("Do you want to add another product? (Y|y for yes, any other key for no): ");
+        if (!more.equalsIgnoreCase("y")) {
+            moreProducts = false;  // Exit the loop if the user doesn't want to add more
+        }
     }
 }
+
 public void showProducts() {
     Iterator<Product> allProducts = warehouse.getProducts().iterator(); // Get iterator from the list of clients
     while (allProducts.hasNext()) {
         Product product = allProducts.next();
         System.out.println(product.toString());
     }
+}
+
+/*public void addProductToClientsWishlist(){
+  String name = getToken("Enter client id");
+  Client client = warehouse.searchClientId(name);
+  if (client != null){
+    String productName = getToken("Enter product name");
+    Product product = warehouse.searchProductName(productName);
+    if(product != null){
+      int quantity = Integer.parseInt(getToken("Enter quantity"));
+      warehouse.addToWishlist(client, product, quantity);
+    }
+    else{
+      System.out.println("Product does not exist");
+    }
+  }
+  else{
+    System.out.println("Client does not exist");
+  }
+
+}*/
+
+public void addProductToClientsWishlist() {
+    String name = getToken("Enter client ID");
+    Client client = warehouse.searchClientId(name);
+
+    if (client != null) {
+        boolean moreProducts = true;
+        while (moreProducts) {
+            String productName = getToken("Enter product name");
+            Product product = warehouse.searchProductName(productName);
+
+            if (product != null) {
+                int quantity = Integer.parseInt(getToken("Enter quantity"));
+                boolean added = warehouse.addToWishlist(client, product, quantity);
+
+                if (added) {
+                    System.out.println("Product added to wishlist: " + product.getName() + " (Quantity: " + quantity + ")");
+                } else {
+                    System.out.println("Failed to add product to wishlist");
+                }
+            } else {
+                System.out.println("Product does not exist");
+            }
+
+            // Ask the user if they want to add another product to the wishlist
+            String more = getToken("Do you want to add another product to the client's wishlist? (Y|y for yes, any other key for no): ");
+            if (!more.equalsIgnoreCase("y")) {
+                moreProducts = false;  // Exit the loop if the user doesn't want to add more
+            }
+        }
+    } else {
+        System.out.println("Client does not exist");
+    }
+}
+
+public void displayClientsWishlist(){
+  String name = getToken("Enter client id");
+  Client client = warehouse.searchClientId(name);
+  client.displayWishlist();
+  
 }
    
   
@@ -169,7 +247,15 @@ public void showProducts() {
         case ADD_PRODUCT:        addProduct();
                                 break;
         case DISPLAY_PRODUCTS:   showProducts();
-                                break;         
+                                break;
+        case ADD_PRODUCTS_TO_CLIENTS_WISHLIST:  addProductToClientsWishlist();
+                                break;
+        case DISPLAY_CLIENTS_WISHLIST:   displayClientsWishlist();
+                                break;
+        case SAVE:              save();
+                                break;
+        case RETRIEVE:          retrieve();
+                                break;       
         case HELP:              help();
                                 break;
       }

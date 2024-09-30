@@ -44,9 +44,13 @@ public class Warehouse implements Serializable{
         return catalog.getProducts();
     }
 
+    public boolean addToWishlist(Client client, Product product, int quantity){ return client.addProductToWishlist(product, quantity);}
 
+    public Client searchClientId(String clientId){return clientList.search(clientId); }
 
+    public Product searchProductName(String productName){return catalog.search(productName); }
 
+    
 
 
 
