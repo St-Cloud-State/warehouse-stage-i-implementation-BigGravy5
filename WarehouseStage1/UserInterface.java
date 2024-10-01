@@ -114,7 +114,7 @@ public class UserInterface {
 }
 
 public void showClients() {
-    Iterator<Client> allClients = warehouse.getClients().iterator(); // Get iterator from the list of clients
+    Iterator<Client> allClients = warehouse.getClients(); 
     while (allClients.hasNext()) {
         Client client = allClients.next();
         System.out.println(client.toString());
@@ -145,7 +145,7 @@ public void addProduct() {
 }
 
 public void showProducts() {
-    Iterator<Product> allProducts = warehouse.getProducts().iterator(); // Get iterator from the list of products
+    Iterator<Product> allProducts = warehouse.getProducts(); 
     while (allProducts.hasNext()) {
         Product product = allProducts.next();
         System.out.println(product.toString());

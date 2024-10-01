@@ -36,11 +36,13 @@ public class Warehouse implements Serializable{
         return null;
     }
 
-    public List<Client> getClients(){
+    
+    public Iterator<Client> getClients() {
         return clientList.getClients();
     }
 
-    public List<Product> getProducts(){
+   
+    public Iterator<Product> getProducts() {
         return catalog.getProducts();
     }
 

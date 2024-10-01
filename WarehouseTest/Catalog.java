@@ -22,8 +22,8 @@ public class Catalog implements Serializable {
         return true;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Iterator<Product> getProducts() {
+        return products.iterator();
     }
 
     public Product search(String productName) {
