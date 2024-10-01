@@ -22,8 +22,8 @@ public class ClientList implements Serializable {
         return true;
     }
 
-    public List<Client> getClients(){
-        return clients;
+    public Iterator<Client> getClients() {
+        return clients.iterator();
     }
 
     public Client search(String clientId) {

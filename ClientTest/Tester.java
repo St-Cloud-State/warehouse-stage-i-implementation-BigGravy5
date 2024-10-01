@@ -18,7 +18,9 @@ public class Tester {
 
         // Display all clients
         System.out.println("All Clients:");
-        for (Client client : clientList.getClients()) {
+        Iterator<Client> clientsIterator = clientList.getClients();
+        while (clientsIterator.hasNext()) {
+            Client client = clientsIterator.next();
             System.out.println(client);
         }
 
