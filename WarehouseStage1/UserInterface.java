@@ -145,32 +145,14 @@ public void addProduct() {
 }
 
 public void showProducts() {
-    Iterator<Product> allProducts = warehouse.getProducts().iterator(); // Get iterator from the list of clients
+    Iterator<Product> allProducts = warehouse.getProducts().iterator(); // Get iterator from the list of products
     while (allProducts.hasNext()) {
         Product product = allProducts.next();
         System.out.println(product.toString());
     }
 }
 
-/*public void addProductToClientsWishlist(){
-  String name = getToken("Enter client id");
-  Client client = warehouse.searchClientId(name);
-  if (client != null){
-    String productName = getToken("Enter product name");
-    Product product = warehouse.searchProductName(productName);
-    if(product != null){
-      int quantity = Integer.parseInt(getToken("Enter quantity"));
-      warehouse.addToWishlist(client, product, quantity);
-    }
-    else{
-      System.out.println("Product does not exist");
-    }
-  }
-  else{
-    System.out.println("Client does not exist");
-  }
 
-}*/
 
 public void addProductToClientsWishlist() {
     String name = getToken("Enter client ID");
